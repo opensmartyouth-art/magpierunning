@@ -7,10 +7,27 @@
 <link rel="stylesheet" href="./assets/site.css">
 </head>
 <body class="template-blog">
-<header class="gallery-header"><a class="site-name" href="./">MAGPIE RUNNING</a></header>
+<header class="header">
+<div class="container h-100">
+<div class="d-flex justify-content-between align-items-center h-lg-100">
+<a href="#" class="menu-toggle" role="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><span></span></a>
+<a class="site-name" href="./">MAGPIE RUNNING</a>
+<nav class="nav" id="site-nav" aria-label="Years">
+<button class="close-menu-toggle" aria-label="Close menu"><span></span></button>
+<div class="nav__wrapper"><div class="nav__container"><div class="nav__content"><div class="main-nav-panels">
+<ul class="main-nav-panel main-nav-panel--active">
+<li><a class="main-nav-panel__link" href="./year/2025/">2025</a></li>
+<li><a class="main-nav-panel__link" href="./year/2026/">2026</a></li>
+</ul>
+</div></div></div></div>
+</nav>
+</div>
+</div>
+</header>
 <main id="main-content" class="main-wrapper" role="main">
 <section class="container-wrapper container">
 <div class="articles articles--current">
+
 <div class="grid-row grid-row--lg-five">
 <div class="article col-2">
 <a href="./events/2026-10-04-seoul-half-marathon/" class="image-portrait article__featured-image" aria-label="View photos: Seoul Half Marathon 2026"><img src="./events/2026-10-04-seoul-half-marathon/cover-600.jpg" srcset="./events/2026-10-04-seoul-half-marathon/cover-600.jpg 1x, ./events/2026-10-04-seoul-half-marathon/cover-1200.jpg 2x" alt="Seoul Half Marathon 2026" width="600" height="900" loading="lazy"></a>
@@ -36,10 +53,39 @@
 <a href="./events/2026-04-19-gyeongju-spring-15k/" class="image-portrait article__featured-image" aria-label="View photos: Gyeongju Spring 15K"><img src="./events/2026-04-19-gyeongju-spring-15k/cover-600.jpg" srcset="./events/2026-04-19-gyeongju-spring-15k/cover-600.jpg 1x, ./events/2026-04-19-gyeongju-spring-15k/cover-1200.jpg 2x" alt="Gyeongju Spring 15K" width="600" height="900" loading="lazy"></a>
 <div class="short-desc article__info"><h3 class="article__title"><a href="./events/2026-04-19-gyeongju-spring-15k/">Gyeongju Spring 15K</a></h3><time class="article__date color-mg" datetime="2026-04-19">April 19, 2026</time></div>
 </div>
+<div class="article col-2">
+<a href="./events/2025-11-02-seoul-marathon-2025/" class="image-portrait article__featured-image" aria-label="View photos: Seoul Marathon 2025"><img src="./events/2025-11-02-seoul-marathon-2025/cover-600.jpg" srcset="./events/2025-11-02-seoul-marathon-2025/cover-600.jpg 1x, ./events/2025-11-02-seoul-marathon-2025/cover-1200.jpg 2x" alt="Seoul Marathon 2025" width="600" height="900" loading="lazy"></a>
+<div class="short-desc article__info"><h3 class="article__title"><a href="./events/2025-11-02-seoul-marathon-2025/">Seoul Marathon 2025</a></h3><time class="article__date color-mg" datetime="2025-11-02">November 02, 2025</time></div>
+</div>
+<div class="article col-2">
+<a href="./events/2025-06-08-hangang-spring-run/" class="image-portrait article__featured-image" aria-label="View photos: Hangang Spring Run"><img src="./events/2025-06-08-hangang-spring-run/cover-600.jpg" srcset="./events/2025-06-08-hangang-spring-run/cover-600.jpg 1x, ./events/2025-06-08-hangang-spring-run/cover-1200.jpg 2x" alt="Hangang Spring Run" width="600" height="900" loading="lazy"></a>
+<div class="short-desc article__info"><h3 class="article__title"><a href="./events/2025-06-08-hangang-spring-run/">Hangang Spring Run</a></h3><time class="article__date color-mg" datetime="2025-06-08">June 08, 2025</time></div>
+</div>
+<div class="article col-2">
+<a href="./events/2025-02-15-jeju-winter-trail/" class="image-portrait article__featured-image" aria-label="View photos: Jeju Winter Trail"><img src="./events/2025-02-15-jeju-winter-trail/cover-600.jpg" srcset="./events/2025-02-15-jeju-winter-trail/cover-600.jpg 1x, ./events/2025-02-15-jeju-winter-trail/cover-1200.jpg 2x" alt="Jeju Winter Trail" width="600" height="900" loading="lazy"></a>
+<div class="short-desc article__info"><h3 class="article__title"><a href="./events/2025-02-15-jeju-winter-trail/">Jeju Winter Trail</a></h3><time class="article__date color-mg" datetime="2025-02-15">February 15, 2025</time></div>
+</div>
 </div>
 
 </div>
 </section>
 </main>
+<script>
+(function () {
+  var toggle = document.querySelector('.menu-toggle'), nav = document.querySelector('.nav'), close = document.querySelector('.close-menu-toggle');
+  function set(open) {
+    toggle.classList.toggle('active-menu-toggle', open);
+    nav.classList.toggle('nav-collapse', open);
+    document.body.classList.toggle('menu-collapse', open);
+    toggle.setAttribute('aria-expanded', open);
+    nav.querySelectorAll('a, button').forEach(function (e) { e.tabIndex = open ? 0 : -1; });
+  }
+  set(false);
+  toggle.addEventListener('click', function (e) { e.preventDefault(); set(!nav.classList.contains('nav-collapse')); });
+  close.addEventListener('click', function () { set(false); });
+  document.querySelector('.main-wrapper').addEventListener('click', function () { if (nav.classList.contains('nav-collapse')) set(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') set(false); });
+})();
+</script>
 </body>
 </html>

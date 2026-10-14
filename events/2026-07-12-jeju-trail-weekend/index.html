@@ -7,7 +7,23 @@
 <link rel="stylesheet" href="../../assets/site.css">
 </head>
 <body class="template-article">
-<header class="gallery-header"><a class="site-name" href="../../">MAGPIE RUNNING</a></header>
+<header class="header">
+<div class="container h-100">
+<div class="d-flex justify-content-between align-items-center h-lg-100">
+<a href="#" class="menu-toggle" role="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><span></span></a>
+<a class="site-name" href="../../">MAGPIE RUNNING</a>
+<nav class="nav" id="site-nav" aria-label="Years">
+<button class="close-menu-toggle" aria-label="Close menu"><span></span></button>
+<div class="nav__wrapper"><div class="nav__container"><div class="nav__content"><div class="main-nav-panels">
+<ul class="main-nav-panel main-nav-panel--active">
+<li><a class="main-nav-panel__link" href="../../year/2025/">2025</a></li>
+<li><a class="main-nav-panel__link" href="../../year/2026/" aria-current="page">2026</a></li>
+</ul>
+</div></div></div></div>
+</nav>
+</div>
+</div>
+</header>
 <main id="main-content" class="main-wrapper" role="main">
 <div id="article" class="container-wrapper container container-wrapper--pt">
 <article class="section article article-single" itemscope itemtype="http://schema.org/Article">
@@ -33,5 +49,22 @@
 </div>
 </div>
 </main>
+<script>
+(function () {
+  var toggle = document.querySelector('.menu-toggle'), nav = document.querySelector('.nav'), close = document.querySelector('.close-menu-toggle');
+  function set(open) {
+    toggle.classList.toggle('active-menu-toggle', open);
+    nav.classList.toggle('nav-collapse', open);
+    document.body.classList.toggle('menu-collapse', open);
+    toggle.setAttribute('aria-expanded', open);
+    nav.querySelectorAll('a, button').forEach(function (e) { e.tabIndex = open ? 0 : -1; });
+  }
+  set(false);
+  toggle.addEventListener('click', function (e) { e.preventDefault(); set(!nav.classList.contains('nav-collapse')); });
+  close.addEventListener('click', function () { set(false); });
+  document.querySelector('.main-wrapper').addEventListener('click', function () { if (nav.classList.contains('nav-collapse')) set(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') set(false); });
+})();
+</script>
 </body>
 </html>
