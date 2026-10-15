@@ -213,6 +213,7 @@ async function buildCss() {
   const [fonts, ...rest] = await Promise.all(['css/fonts.css', 'css/tokens.css', 'css/base.css', 'css/06-header.css', 'css/08-main-menu.css', 'css/21-article-card.css', 'css/22-article-header.css', 'css/23-article-pagination.css', 'css/05-pagination.css', 'gallery.css'].map(rd));
   let body = rest.join('\n\n');
   for (const [from, to] of FONT_MAP) body = body.replace(from, to);
+  body = body.replace(/url\(\/\/www\.aimeleondore\.com[^)]*\)/g, 'none'); // ALD 서버의 이미지(메뉴 배경 로고 무늬 등)는 쓰지 않으므로 주소를 없앤다
   await mkdir(join(dist, 'assets/fonts'), { recursive: true });
   for (const f of await readdir(join(root, 'site/fonts'))) await writeFile(join(dist, 'assets/fonts', f), await readFile(join(root, 'site/fonts', f)));
   await writeFile(join(dist, 'assets/site.css'), [fonts, body].join('\n\n'));
