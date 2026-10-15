@@ -34,7 +34,15 @@ body {
 
 /* 메뉴 패널: 원본 배경에 깔린 ALD 로고 무늬는 쓰지 않는다. 탭 줄이 없으니 닫기 버튼 높이(61px)만큼 비운다 */
 .nav__wrapper:after { content: none; }
-@media screen and (min-width: 451px) { .nav__container { padding-top: 61px; } }
+/* 닫기 버튼: 위치값(top)으로 맞추지 않고, 상단 영역(헤더 높이)을 flex 로 만들어 세로 가운데에 둔다.
+   ≤450px 에서는 헤더의 메뉴 버튼이 X 로 바뀌므로 이 영역을 쓰지 않는다(원본도 이 구간에서 닫기 버튼을 숨김) */
+.nav__bar { display: none; }
+@media screen and (min-width: 451px) {
+  .nav__bar { display: flex; align-items: center; justify-content: flex-end; height: var(--ald-header-height); padding: 0 var(--ald-space-20); position: relative; z-index: 11; }
+  .nav .close-menu-toggle { position: relative; top: auto; right: auto; margin: 0; width: 20px; height: 20px; }
+  /* X 의 두 선을 버튼 상자 정중앙(50%)에 둔다. 원본은 top:7px 로 1px 위로 치우쳐 있다 */
+  .nav .close-menu-toggle:before, .nav .close-menu-toggle:after { top: 50%; right: auto; left: 0; width: 20px; margin-top: -0.5px; }
+}
 .main-nav-panel__link[aria-current] { color: var(--ald-color-white); }
 /* Coming soon: 링크가 아니라 안내 글자. 눌리지 않고 hover 색도 바뀌지 않는다 */
 .main-nav-panel__link.coming-soon,

@@ -117,8 +117,9 @@ const header = (base, years, active) => `<header class="header">
 <a href="#" class="menu-toggle" role="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><span></span></a>
 <a class="site-name" href="${base}">${SITE}</a>
 <nav class="nav" id="site-nav" aria-label="Years">
-<button class="close-menu-toggle" aria-label="Close menu"><span></span></button>
-<div class="nav__wrapper"><div class="nav__container"><div class="nav__content"><div class="main-nav-panels">
+<div class="nav__wrapper">
+<div class="nav__bar"><button class="close-menu-toggle" aria-label="Close menu"><span></span></button></div>
+<div class="nav__container"><div class="nav__content"><div class="main-nav-panels">
 <ul class="main-nav-panel main-nav-panel--active">
 <li><span class="main-nav-panel__link coming-soon">Coming soon</span></li>
 ${years.map((y) => `<li><a class="main-nav-panel__link" href="${base}year/${y}/"${y === active ? ' aria-current="page"' : ''}>${y}</a></li>`).join('\n')}
