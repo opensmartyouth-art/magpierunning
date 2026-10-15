@@ -2,7 +2,7 @@
 
 러닝크루 대회 사진 갤러리입니다. 이 레포에 사진을 올리면 1~2분 뒤 사이트가 자동으로 바뀝니다.
 
-사이트: https://opensmartyouth-art.github.io/magpierunning/
+사이트(첫 화면은 영상, 대회 목록은 /events/): https://opensmartyouth-art.github.io/magpierunning/
 
 ## 폴더 구조
 

@@ -151,9 +151,9 @@ function card(ev, base) {
 }
 
 function listPage(events, page, pages, menu, year) {
-  const base = year || page > 1 ? '../../' : './';
+  const base = year ? '../../' : page > 1 ? '../../../' : '../'; // 목록은 /events/ (홈 / 은 랜딩)
   const slice = events.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
-  const link = (p) => (p === 1 ? `${base}` : `${base}page/${p}/`);
+  const link = (p) => (p === 1 ? `${base}events/` : `${base}events/page/${p}/`);
   const nav = pages > 1 ? `<div class="pagination">${page > 1 ? `<span class="prev"><a href="${link(page - 1)}" aria-label="Previous page"></a></span>` : ''}${Array.from({ length: pages }, (_, i) => i + 1).map((p) => (p === page ? `<span class="page current" aria-current="page">${String(p).padStart(2, '0')}</span>` : `<span class="page"><a href="${link(p)}" aria-label="Page ${p}">${String(p).padStart(2, '0')}</a></span>`)).join('')}${page < pages ? `<span class="next"><a href="${link(page + 1)}" aria-label="Next page"></a></span>` : ''}</div>` : '';
   return `${head(year ? `${year} — ${SITE}` : SITE, base)}
 <body class="template-blog">
@@ -167,6 +167,24 @@ ${slice.map((e) => card(e, base)).join('\n')}
 </div>
 ${nav}
 </div>
+</section>
+</main>
+${MENU_JS}
+</body>
+</html>
+`;
+}
+
+// 랜딩(/): 화면 가득 채우는 소리 없는 자동재생 영상(레퍼런스 aimeleondore.com 첫 화면과 같은 방식: 조작 불가, 반복). 아래 링크로 대회 목록(/events/)에 들어간다.
+function landingPage(menu) {
+  const base = './';
+  return `${head(SITE, base)}
+<body class="template-landing">
+${header(base, menu)}
+<main id="main-content" class="main-wrapper" role="main">
+<section class="hero">
+<video class="hero__video" src="${base}assets/hero.mp4" poster="${base}assets/hero-poster.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1"></video>
+<a class="hero__enter" href="${base}events/">View the Gallery</a>
 </section>
 </main>
 ${MENU_JS}
@@ -240,6 +258,7 @@ async function main() {
   await mkdir(dist, { recursive: true });
   await buildCss();
   await buildBrand();
+  for (const [f, to] of [['hero.mp4', 'hero.mp4'], ['hero-poster.jpg', 'hero-poster.jpg']]) await writeFile(join(dist, 'assets', to), await readFile(join(root, 'site/media', f)));
   const processed = new Map();
   for (const ev of events) processed.set(`${ev.year}/${ev.slug}`, await processPhotos(ev));
   const years = [...new Set(events.map((e) => e.year))].sort().reverse(); // 대회가 있는 연도(연도 페이지를 만든다)
@@ -249,10 +268,11 @@ async function main() {
   for (const y of years) if (!menu.years.includes(y)) console.warn(`경고: events/${y}/ 의 대회는 사이트에 만들어지지만 메뉴에는 없습니다 (메뉴에 넣으려면 site/config.json 의 menu.years 에 \"${y}\" 를 추가하세요)`);
   const pages = Math.max(1, Math.ceil(events.length / PAGE_SIZE));
   for (let p = 1; p <= pages; p++) {
-    const dir = p === 1 ? dist : join(dist, 'page', String(p));
+    const dir = p === 1 ? join(dist, 'events') : join(dist, 'events', 'page', String(p));
     await mkdir(dir, { recursive: true });
     await writeFile(join(dir, 'index.html'), listPage(events, p, pages, menu));
   }
+  await writeFile(join(dist, 'index.html'), landingPage(menu));
   for (const y of years) {
     const dir = join(dist, 'year', y);
     await mkdir(dir, { recursive: true });
