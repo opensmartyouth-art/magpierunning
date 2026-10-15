@@ -1,6 +1,7 @@
 {
   "menu": {
     "years": ["2026", "2025"],
+    "disabledYears": ["2025"],
     "comingSoon": "Coming soon"
   }
 }

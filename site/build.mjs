@@ -130,7 +130,7 @@ const header = (base, menu, active) => `<header class="header header--crest-tran
 <div class="nav__container"><div class="nav__content"><div class="main-nav-panels">
 <ul class="main-nav-panel main-nav-panel--active">
 ${menu.comingSoon ? `<li><span class="main-nav-panel__link coming-soon">${esc(menu.comingSoon)}</span></li>` : ''}
-${menu.years.map((y) => `<li><a class="main-nav-panel__link" href="${base}year/${y}/"${y === active ? ' aria-current="page"' : ''}>${y}</a></li>`).join('\n')}
+${menu.years.map((y) => (menu.disabled.includes(y) ? `<li><span class="main-nav-panel__link coming-soon" aria-disabled="true">${y}</span></li>` : `<li><a class="main-nav-panel__link" href="${base}year/${y}/"${y === active ? ' aria-current="page"' : ''}>${y}</a></li>`)).join('\n')}
 </ul>
 </div></div></div></div>
 </nav>
@@ -242,7 +242,7 @@ async function main() {
   for (const ev of events) processed.set(`${ev.year}/${ev.slug}`, await processPhotos(ev));
   const years = [...new Set(events.map((e) => e.year))].sort().reverse(); // 대회가 있는 연도(연도 페이지를 만든다)
   const config = JSON.parse(await readFile(join(root, 'site/config.json'), 'utf8'));
-  const menu = { years: config.menu.years.map(String), comingSoon: config.menu.comingSoon || '' };
+  const menu = { years: config.menu.years.map(String), comingSoon: config.menu.comingSoon || '', disabled: (config.menu.disabledYears || []).map(String) }; // disabledYears: 메뉴에 보이지만 눌리지 않는 연도
   for (const y of menu.years) if (!years.includes(y)) throw new Error(`site/config.json 의 메뉴 연도 ${y} 에 해당하는 대회가 events/${y}/ 에 없습니다`);
   for (const y of years) if (!menu.years.includes(y)) console.warn(`경고: events/${y}/ 의 대회는 사이트에 만들어지지만 메뉴에는 없습니다 (메뉴에 넣으려면 site/config.json 의 menu.years 에 \"${y}\" 를 추가하세요)`);
   const pages = Math.max(1, Math.ceil(events.length / PAGE_SIZE));
