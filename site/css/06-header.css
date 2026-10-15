@@ -175,6 +175,14 @@
   }
 }
 
+.site-name__logo-crest {
+  position:absolute;
+  left:0;
+  right:0;
+  margin:0 auto;
+  opacity:0;
+  will-change:opacity;
+}
 .header--crest-transition.header--fixed .site-name__logo-crest, .header--crest-transition.header--no-fixed-scrolled .site-name__logo-crest {
   opacity:1;
 }

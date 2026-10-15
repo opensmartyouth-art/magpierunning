@@ -89,6 +89,9 @@ const head = (title, base) => `<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(title)}</title>
+<link rel="icon" type="image/png" sizes="32x32" href="${base}assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="${base}assets/favicon-192.png">
+<link rel="apple-touch-icon" href="${base}assets/apple-touch-icon.png">
 <link rel="stylesheet" href="${base}assets/site.css">
 </head>`;
 
@@ -102,6 +105,11 @@ const MENU_JS = `<script>
     toggle.setAttribute('aria-expanded', open);
     nav.querySelectorAll('a, button').forEach(function (e) { e.tabIndex = open ? 0 : -1; });
   }
+  // 로고 전환: 원본(aimeleondore.com)처럼 스크롤이 0보다 크면 header--fixed 를 붙이고, 로고 두 장의 투명도를 CSS 가 0.5s ease 로 바꾼다
+  var header = document.querySelector('.header');
+  function onScroll() { header.classList.toggle('header--fixed', (window.pageYOffset || document.documentElement.scrollTop) > 0); }
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
   set(false);
   toggle.addEventListener('click', function (e) { e.preventDefault(); set(!nav.classList.contains('nav-collapse')); });
   close.addEventListener('click', function () { set(false); });
@@ -111,11 +119,11 @@ const MENU_JS = `<script>
 </script>`;
 
 // 연도 메뉴: events/ 아래 연도 폴더에서 만든다. 위에서부터 Coming soon(링크 없음), 최신 연도, 이전 연도 순이다.
-const header = (base, years, active) => `<header class="header">
+const header = (base, years, active) => `<header class="header header--crest-transition">
 <div class="container h-100">
 <div class="d-flex justify-content-between align-items-center h-lg-100">
 <a href="#" class="menu-toggle" role="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><span></span></a>
-<a class="site-name" href="${base}">${SITE}</a>
+<a class="site-name" href="${base}" aria-label="${SITE} — Home"><img class="site-name__logo" src="${base}assets/Logo.svg" alt="${SITE}" height="28"><img class="site-name__logo-crest" src="${base}assets/Logo02.svg" alt="" aria-hidden="true" height="28"></a>
 <nav class="nav" id="site-nav" aria-label="Years">
 <div class="nav__wrapper">
 <div class="nav__bar"><button class="close-menu-toggle" aria-label="Close menu"><span></span></button></div>
@@ -200,6 +208,17 @@ async function buildCss() {
   await writeFile(join(dist, 'assets/site.css'), parts.join('\n\n'));
 }
 
+async function buildBrand() {
+  // 루트의 Logo.svg(처음 로고), Logo02.svg(스크롤 후 로고), Favicon.png 를 사이트에 넣는다
+  const need = ['Logo.svg', 'Logo02.svg', 'Favicon.png'];
+  for (const f of need) { try { await readFile(join(root, f)); } catch { throw new Error(`${f} 파일이 레포 맨 위에 없습니다`); } }
+  await mkdir(join(dist, 'assets'), { recursive: true });
+  for (const f of ['Logo.svg', 'Logo02.svg']) await writeFile(join(dist, 'assets', f), await readFile(join(root, f)));
+  for (const [name, size] of [['favicon-32.png', 32], ['favicon-192.png', 192], ['apple-touch-icon.png', 180]]) {
+    await sharp(join(root, 'Favicon.png')).resize(size, size, { fit: 'contain', background: { r: 255, g: 255, b: 255, alpha: 0 } }).png().toFile(join(dist, 'assets', name));
+  }
+}
+
 async function main() {
   const t0 = Date.now();
   await rm(dist, { recursive: true, force: true });
@@ -207,6 +226,7 @@ async function main() {
   if (!events.length) throw new Error('events/ 아래에 대회가 하나도 없습니다');
   await mkdir(dist, { recursive: true });
   await buildCss();
+  await buildBrand();
   const processed = new Map();
   for (const ev of events) processed.set(`${ev.year}/${ev.slug}`, await processPhotos(ev));
   const years = [...new Set(events.map((e) => e.year))].sort().reverse(); // 최신 연도가 위
