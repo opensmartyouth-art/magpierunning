@@ -47,7 +47,7 @@ async function readEvents() {
       const files = await readdir(dir);
       const skipped = files.filter((f) => SKIPPED_IMG.test(f));
       if (skipped.length) console.warn(`경고: ${where} 의 ${skipped.join(', ')} 은(는) 지원하지 않는 형식이라 건너뜁니다 (jpg, png, webp 만 가능)`);
-      const THUMB = /^thumbnail\.(jpe?g|png|webp)$/i; // 목록 썸네일 전용 파일: 대회 상세의 사진 목록에는 넣지 않는다
+      const THUMB = /^(thumbnail|썸네일)\.(jpe?g|png|webp)$/i; // 목록 썸네일 전용 파일: 대회 상세의 사진 목록에는 넣지 않는다
       const thumb = files.find((f) => THUMB.test(f));
       const photos = files.filter((f) => IMG.test(f) && !THUMB.test(f)).sort(natural);
       if (!photos.length) throw new Error(`${where}: 사진(jpg, png, webp)이 없습니다`);
