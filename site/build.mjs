@@ -178,16 +178,41 @@ ${MENU_JS}
 // 랜딩(/): 화면 가득 채우는 소리 없는 자동재생 영상(레퍼런스 aimeleondore.com 첫 화면과 같은 방식: 조작 불가, 반복). 아래 링크로 대회 목록(/events/)에 들어간다.
 function landingPage(menu) {
   const base = './';
+  // 소리 버튼은 레퍼런스 /pages/sonny 의 #soundon 과 같다: 30px 흰 원, 왼쪽·아래 25px. 처음엔 음소거(스피커+X), 누르면 소리가 켜지고(스피커+물결) 다시 누르면 꺼진다.
+  const ICON = `<svg class="sound__icon sound__icon--off" width="30" height="30" viewBox="0 0 30 30" fill="none" aria-hidden="true"><circle cx="15" cy="15" r="14.5" fill="#fff" stroke="#E5E5E5"/><path d="M10.4318 11.3182L15.3409 8.25V21.75L10.4318 18.6818H6.75V11.3182H10.4318Z" stroke="#181818"/><path d="M17.1818 11.9318L23.3182 18.0681M17.1818 18.0681L23.3182 11.9318" stroke="#181818"/></svg><svg class="sound__icon sound__icon--on" width="30" height="30" viewBox="0 0 30 30" fill="none" aria-hidden="true"><circle cx="15" cy="15" r="14.5" fill="#fff" stroke="#E5E5E5"/><path d="M10.4318 11.3182L15.3409 8.25V21.75L10.4318 18.6818H6.75V11.3182H10.4318Z" stroke="#181818"/><path d="M17.7954 11.9319V18.0683" stroke="#181818"/><path d="M19.6361 10.7044V19.2953" stroke="#181818"/><path d="M21.4769 9.47729V20.5227" stroke="#181818"/></svg>`;
   return `${head(SITE, base)}
 <body class="template-landing">
 ${header(base, menu)}
 <main id="main-content" class="main-wrapper" role="main">
 <section class="hero">
-<video class="hero__video" src="${base}assets/hero.mp4" poster="${base}assets/hero-poster.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1"></video>
+<video class="hero__video" muted loop playsinline autoplay preload="auto" aria-hidden="true" tabindex="-1"></video>
+<a href="#" class="sound muted" role="button" aria-pressed="false" aria-label="Unmute">${ICON}</a>
 <a class="hero__enter" href="${base}events/">View the Gallery</a>
 </section>
 </main>
 ${MENU_JS}
+<script>
+(function () {
+  // 가로 화면은 16:9, 세로 화면은 9:16 영상을 쓴다(방향이 바뀌면 영상만 바꾸고 소리 설정은 그대로 둔다)
+  var v = document.querySelector('.hero__video'), btn = document.querySelector('.sound'), mq = window.matchMedia('(orientation: portrait)');
+  var SRC = { landscape: ['${base}assets/hero-landscape.mp4', '${base}assets/hero-landscape-poster.jpg'], portrait: ['${base}assets/hero-portrait.mp4', '${base}assets/hero-portrait-poster.jpg'] }, cur = '';
+  function pick() {
+    var k = mq.matches ? 'portrait' : 'landscape';
+    if (k === cur) return;
+    cur = k; v.poster = SRC[k][1]; v.src = SRC[k][0]; v.load();
+    var p = v.play(); if (p && p.catch) p.catch(function () {});
+  }
+  pick();
+  (mq.addEventListener ? mq.addEventListener('change', pick) : mq.addListener(pick));
+  btn.addEventListener('click', function (e) {
+    e.preventDefault();
+    v.muted = !v.muted;
+    btn.classList.toggle('muted', v.muted); btn.classList.toggle('unmuted', !v.muted);
+    btn.setAttribute('aria-pressed', String(!v.muted)); btn.setAttribute('aria-label', v.muted ? 'Unmute' : 'Mute');
+    if (v.paused) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+  });
+})();
+</script>
 </body>
 </html>
 `;
@@ -258,7 +283,7 @@ async function main() {
   await mkdir(dist, { recursive: true });
   await buildCss();
   await buildBrand();
-  for (const [f, to] of [['hero.mp4', 'hero.mp4'], ['hero-poster.jpg', 'hero-poster.jpg']]) await writeFile(join(dist, 'assets', to), await readFile(join(root, 'site/media', f)));
+  for (const f of ['hero-landscape.mp4', 'hero-landscape-poster.jpg', 'hero-portrait.mp4', 'hero-portrait-poster.jpg']) await writeFile(join(dist, 'assets', f), await readFile(join(root, 'site/media', f)));
   const processed = new Map();
   for (const ev of events) processed.set(`${ev.year}/${ev.slug}`, await processPhotos(ev));
   const years = [...new Set(events.map((e) => e.year))].sort().reverse(); // 대회가 있는 연도(연도 페이지를 만든다)

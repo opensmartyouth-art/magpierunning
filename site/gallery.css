@@ -93,3 +93,9 @@ body {
 .template-landing .header { background: transparent; border-bottom-color: transparent; }
 .template-landing .site-name img { filter: invert(1); }
 .template-landing:not(.menu-collapse) .menu-toggle { filter: invert(1); }
+
+/* 소리 버튼(레퍼런스 /pages/sonny 의 #soundon): 30px 원, 왼쪽·아래 25px 고정. 음소거(스피커+X)가 기본, 켜면 스피커+물결 */
+.sound { position: fixed; left: 25px; bottom: 25px; bottom: calc(25px + env(safe-area-inset-bottom, 0px)); width: 30px; height: 30px; border-radius: 15px; z-index: 100; display: block; line-height: 0; }
+.sound__icon { position: absolute; inset: 0; }
+.sound.muted .sound__icon--on, .sound.unmuted .sound__icon--off { display: none; }
+.sound:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
