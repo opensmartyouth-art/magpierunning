@@ -1,0 +1,13 @@
+{
+  "name": "magpierunning",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MAGPIE RUNNING race photo gallery",
+  "type": "module",
+  "scripts": {
+    "build": "node site/build.mjs"
+  },
+  "dependencies": {
+    "sharp": "^0.34.0"
+  }
+}

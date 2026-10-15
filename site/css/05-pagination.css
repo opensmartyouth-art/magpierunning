@@ -1,0 +1,172 @@
+/* 페이지네이션 — 원본 규칙 그대로(속성 줄바꿈만). 출처: theme.scss.css · pdp-styles.scss.css · 인라인 */
+.pagination {
+  text-transform:uppercase;
+  margin:34px auto 100px;
+  text-align:center;
+  font-family:DIN W01 Regular,Arial,sans-serif;
+  letter-spacing:.1em;
+  font-size:.75rem;
+}
+.pagination .next button, .pagination .prev button {
+  background:none;
+  border:none;
+  padding:0;
+  margin:0;
+  font:inherit;
+  color:inherit;
+  cursor:pointer;
+  text-decoration:none;
+  display:inline-block;
+  top:-5px;
+}
+.pagination .page {
+  margin:0 6.66667px;
+}
+.pagination .page:not(.current) {
+  color:#c4c4c4;
+}
+.pagination .page:not(.current) * {
+  color:inherit;
+}
+.pagination .page a:hover {
+  color:#181818;
+}
+.pagination .deco {
+  color:#c4c4c4;
+  margin:0 6.66667px;
+}
+.pagination .next, .pagination .next-article {
+  margin-left:13.33333px;
+}
+.pagination .next>a, .pagination .next>span, .pagination .next>button, .pagination .next-article>a, .pagination .next-article>span, .pagination .next-article>button {
+  position:relative;
+}
+.pagination .next>a:before, .pagination .next>span:before, .pagination .next>button:before, .pagination .next-article>a:before, .pagination .next-article>span:before, .pagination .next-article>button:before {
+  content:"";
+  padding:4px;
+  border:solid #181818;
+  border-width:0 2px 2px 0;
+  display:inline-block;
+  transform:rotate(-45deg);
+}
+.pagination .next>a:before, .pagination .next>span:before, .pagination .next>button:before, .pagination .next-article>a:before, .pagination .next-article>span:before, .pagination .next-article>button:before {
+  position:absolute;
+  top:50%;
+  margin-top:-4px;
+}
+.pagination .next.pagination-disabled, .pagination .next-article.pagination-disabled {
+  color:#c4c4c4;
+}
+.pagination .next.pagination-disabled>a:before, .pagination .next.pagination-disabled>span:before, .pagination .next.pagination-disabled>button:before, .pagination .next-article.pagination-disabled>a:before, .pagination .next-article.pagination-disabled>span:before, .pagination .next-article.pagination-disabled>button:before {
+  border-color:#e5e5e5;
+}
+.pagination .prev, .pagination .prev-article {
+  margin-right:25px;
+}
+.pagination .prev>a, .pagination .prev>span, .pagination .prev>button, .pagination .prev-article>a, .pagination .prev-article>span, .pagination .prev-article>button {
+  position:relative;
+}
+.pagination .prev>a:before, .pagination .prev>span:before, .pagination .prev>button:before, .pagination .prev-article>a:before, .pagination .prev-article>span:before, .pagination .prev-article>button:before {
+  content:"";
+  padding:4px;
+  border:solid #181818;
+  border-width:0 2px 2px 0;
+  display:inline-block;
+  transform:rotate(135deg);
+}
+.pagination .prev>a:before, .pagination .prev>span:before, .pagination .prev>button:before, .pagination .prev-article>a:before, .pagination .prev-article>span:before, .pagination .prev-article>button:before {
+  position:absolute;
+  top:50%;
+  margin-top:-4px;
+}
+.pagination .prev.pagination-disabled, .pagination .prev-article.pagination-disabled {
+  color:#c4c4c4;
+}
+.pagination .prev.pagination-disabled>a:before, .pagination .prev.pagination-disabled>span:before, .pagination .prev.pagination-disabled>button:before, .pagination .prev-article.pagination-disabled>a:before, .pagination .prev-article.pagination-disabled>span:before, .pagination .prev-article.pagination-disabled>button:before {
+  border-color:#e5e5e5;
+}
+.pagination .prev-article>a, .pagination .prev-article>span, .pagination .prev-article>button {
+  padding-left:15px;
+}
+.pagination .prev-article>a:before, .pagination .prev-article>span:before, .pagination .prev-article>button:before {
+  left:0;
+  margin-top:-5px;
+}
+.pagination .next-article>a, .pagination .next-article>span, .pagination .next-article>button {
+  padding-right:15px;
+}
+.pagination .next-article>a:before, .pagination .next-article>span:before, .pagination .next-article>button:before {
+  right:0;
+  margin-top:-5px;
+}
+.pagination .prev {
+  margin-right:20px;
+}
+.pagination .prev>a:before, .pagination .prev>span:before, .pagination .prev>button:before {
+  margin-left:-1.5px;
+}
+.pagination .next {
+  margin-left:20px;
+}
+.pagination .next>a:before, .pagination .next>span:before, .pagination .next>button:before {
+  margin-left:-8.5px;
+}
+.pagination .prev>a, .pagination .prev>span, .pagination .prev>button, .pagination .next>a, .pagination .next>span, .pagination .next>button {
+  display:inline-block;
+  width:8px;
+  top:-5px;
+}
+.pagination .prev>a:before, .pagination .prev>span:before, .pagination .prev>button:before, .pagination .next>a:before, .pagination .next>span:before, .pagination .next>button:before {
+  left:50%;
+}
+.pagination.pagination--plp {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  align-items:center;
+}
+.pagination.pagination--plp #plp-view-all {
+  xflex:0 0 100%;
+}
+@media only screen and (min-width:1025px) {
+  .pagination {
+    font-size:.6875rem;
+  }
+}
+
+.pagination .pagination-view-all {
+  margin-top:16px;
+}
+.pagination .pagination-view-all a, .pagination .pagination-view-all spa, .pagination .pagination-view-all button {
+  text-transform:uppercase;
+  font-size:11px;
+  padding-left:14px;
+}
+.pagination #plp-view-all {
+  display:block;
+  margin:16px auto 0;
+  padding:0;
+  background:none;
+  border:0;
+  color:inherit;
+  font-family:DIN W01 Regular,Arial,sans-serif;
+  font-size:11px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  cursor:pointer;
+}
+.pagination #plp-view-all:hover {
+  color:#181818;
+}
+.pagination #plp-view-all:focus-visible {
+  outline:1px solid #181818;
+  outline-offset:3px;
+}
+.pagination #plp-view-all[disabled] {
+  color:#c4c4c4;
+  cursor:default;
+}
+.main-wrapper--vintage .pagination {
+  margin-bottom:0;
+  padding-bottom:50px;
+}

@@ -1,0 +1,131 @@
+/* 글 헤더 (Article header) — 원본 규칙 그대로(속성 줄바꿈만). 출처: theme.scss.css · pdp-styles.scss.css · 인라인 */
+.container {
+  width:100%;
+  padding:0 20px;
+  position:relative;
+  margin:0 auto;
+}
+@media only screen and (min-width:1025px) {
+  .container {
+    padding-left:25px;
+    padding-right:25px;
+  }
+}
+
+.container-lg {
+  padding-top:61px;
+  position:relative;
+  margin:0 auto;
+  width:100%;
+}
+.shopify-section:not(:first-child) .container-lg {
+  padding-top:35px;
+}
+.announcement-bar-visible .container-lg {
+  padding-top:102px;
+}
+@media only screen and (min-width:1025px) {
+  .container-lg {
+    padding-top:86px;
+    padding-left:25px;
+    padding-right:25px;
+  }
+  .container-lg.pt-lg-static {
+    padding-top:61px;
+  }
+  .announcement-bar-visible .container-lg {
+    padding-top:127px;
+  }
+  .top-bar-visible .container-lg {
+    padding-top:126px;
+  }
+  .announcement-bar-visible.top-bar-visible .container-lg {
+    padding-top:167px;
+  }
+}
+
+.container-wrapper {
+  padding-top:61px!important;
+}
+.container-wrapper--pt {
+  padding-top:61px!important;
+}
+@media only screen and (min-width:1025px) {
+  .container-wrapper--pt {
+    padding-top:88px!important;
+  }
+  .page-flagship .container-wrapper--pt {
+    padding-top:66px!important;
+  }
+  .container-wrapper--pt.container-wrapper--ptexp {
+    padding-top:41px!important;
+  }
+}
+
+.announcement-bar-visible .container-wrapper {
+  padding-top:102px!important;
+}
+.template-collection .container-wrapper, .template-search .container-wrapper {
+  padding-top:122px!important;
+}
+.article-single .article__title {
+  font-family:Financier Display,Times New Roman,Times,serif;
+  font-weight:500;
+  letter-spacing:normal;
+  margin-top:0;
+  margin-bottom:7px;
+  font-size:1.5rem;
+  line-height:1;
+}
+@media only screen and (min-width:1025px) {
+  .article-single {
+    padding-top:25px;
+  }
+}
+
+.article__header {
+  margin-bottom:30px;
+}
+.article__content a {
+  color:#c4c4c4!important;
+}
+.article__content img {
+  display:block;
+  width:100%;
+  height:auto;
+  margin-bottom:7px;
+}
+@media only screen and (min-width:1025px) {
+  .article__content img {
+    margin-bottom:14px;
+  }
+}
+
+.template-customers-reset_password .container.footer {
+  display:none;
+}
+.collection-vintage-section>.container {
+  z-index:91;
+  background:#fff;
+}
+.page-vintage .container.footer {
+  background:#fff;
+}
+.rich-text-section .container {
+  padding-top:61px;
+  padding-bottom:74px;
+  max-width:286px;
+}
+@media only screen and (min-width:1025px) {
+  .rich-text-section .container {
+    max-width:725px;
+    padding-bottom:192px;
+    padding-top:145px;
+  }
+}
+
+@media screen and (max-width:1024px) {
+  .template-name-store-2 .container-wrapper {
+    padding-top:0!important;
+  }
+}

@@ -1,0 +1,229 @@
+/* 메인 메뉴 — 원본 규칙 그대로(속성 줄바꿈만). 출처: theme.scss.css · pdp-styles.scss.css · 인라인 */
+@media only screen and (min-width:1025px) {
+  ul.main-nav>li.main-nav__item:last-child>div.select-wrapper select.currencies {
+    display:flex!important;
+  }
+}
+
+.nav {
+  position:fixed;
+  top:0;
+  height:calc(100vh - (100vh - 100%));
+  max-height:calc(100vh - (100vh - 100%));
+  visibility:hidden;
+  overflow-y:hidden;
+  overflow-x:hidden;
+  width:100%;
+  max-width:450px;
+  left:0;
+  opacity:0;
+  z-index:100;
+  transform:translate(-100%);
+  transition:all .45s cubic-bezier(.455,.03,.515,.955);
+  letter-spacing:.1em;
+  font-size:.875rem;
+  color:#fff;
+}
+.resize-animation-stopper .nav, .resize-animation-stopper .nav * {
+  transition:none;
+}
+.nav .simplebar-content {
+  height:calc(100vh - (100vh - 100%));
+  display:flex;
+  flex-direction:column;
+}
+.nav .simplebar-content-wrapper {
+  -ms-overflow-style:none;
+  scrollbar-width:none;
+}
+.nav .simplebar-content-wrapper::-webkit-scrollbar {
+  display:none;
+}
+.nav .simplebar-track {
+  display:none;
+  visibility:hidden!important;
+}
+.nav .simplebar-track.simplebar-vertical {
+  width:9px;
+  opacity:0;
+}
+.nav.nav-collapse {
+  transform:translate(0);
+  visibility:visible;
+  opacity:1;
+}
+@media screen and (min-width:451px) {
+  .nav.nav-collapse {
+    z-index:10001;
+  }
+}
+
+.nav__wrapper {
+  padding:60px 0 35px;
+  position:relative;
+  min-height:100%;
+  overflow:hidden;
+  background:#454545;
+  z-index:10;
+}
+.nav__wrapper:before {
+  content:"";
+  position:absolute;
+  width:100%;
+  height:calc(100% - 61px);
+  left:0;
+  top:61px;
+  background-color:#1818184d;
+  pointer-events:none;
+}
+.nav__wrapper.nav--shop-lock:before {
+  height:100%;
+  top:0;
+}
+.nav__wrapper:after {
+  content:"";
+  position:absolute;
+  width:100%;
+  height:calc(100% - 60px);
+  left:0;
+  top:60px;
+  background-image:url(//www.aimeleondore.com/cdn/shop/t/112/assets/logo_pattern.png?v=56881641828263002801777387043);
+  background-position:center 168px;
+  background-repeat:no-repeat;
+  background-size:319px 306px;
+  mix-blend-mode:overlay;
+  -webkit-mix-blend-mode:overlay;
+  opacity:.1;
+  pointer-events:none;
+  transform:translateZ(0);
+  -webkit-transform:translateZ(0);
+  will-change:transform;
+  z-index:10;
+}
+@media screen and (min-width:451px) {
+  .nav__wrapper {
+    padding-top:0;
+  }
+  .nav__wrapper:after {
+    top:60px;
+    height:calc(100% - 60px);
+    background-position:center calc(50% - 40px);
+  }
+}
+
+.nav__content {
+  position:relative;
+  z-index:2;
+}
+.nav__container {
+  position:relative;
+  z-index:5;
+  display:flex;
+  flex-direction:column;
+  overflow:scroll;
+  height:calc(100vh - 125px);
+}
+.nav__container::-webkit-scrollbar {
+  display:none;
+}
+@media(max-width:450px)and (orientation:landscape) {
+  .nav__container {
+    height:calc(100vh - 125px);
+  }
+}
+
+@media screen and (min-width:451px)and (max-width:767px) {
+  .nav__container {
+    height:calc(100vh - 85px);
+  }
+}
+
+@media(min-width:451px)and (max-width:767px)and (orientation:landscape) {
+  .nav__container {
+    height:calc(100vh - 85px);
+  }
+}
+
+@media screen and (min-width:768px)and (max-width:1024px) {
+  .nav__container {
+    height:calc(100vh - 85px);
+  }
+}
+
+.main-nav__link {
+  transition:none;
+  font-size:.625rem;
+  color:#fff;
+  text-transform:uppercase;
+  line-height:1;
+  font-weight:400;
+  min-height:40px;
+  display:flex;
+  align-items:center;
+  padding:0 20px;
+}
+.main-nav__link:not(.main-nav__tab-btn--active) {
+  color:#c4c4c4b3;
+  background:#454545;
+}
+@media screen and (min-width:451px) {
+  .main-nav__link {
+    min-height:61px;
+    background:#1818184d;
+  }
+  .nav--shop-lock .main-nav__link {
+    background:none;
+  }
+}
+
+.main-nav-panel__spacer {
+  height:10px;
+}
+.main-nav-panels {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(0,1fr));
+  padding:20px 0 10px;
+}
+.main-nav-panel {
+  padding:0 20px;
+  visibility:hidden;
+}
+.main-nav-panel>li {
+  margin-bottom:15px;
+}
+.main-nav-panel.main-nav-panel--active {
+  visibility:visible;
+}
+.main-nav-panel__link {
+  transition:none;
+  font-size:.625rem;
+  color:#fff;
+  text-transform:uppercase;
+  line-height:1;
+  font-weight:400;
+  display:block;
+  padding:5px 0;
+}
+@media only screen and (min-width:1025px) {
+  .main-nav-panel__link {
+    color:#c4c4c4b3;
+  }
+  .main-nav-panel__link:hover {
+    color:#fff;
+  }
+}
+
+.main-nav {
+  position:relative;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(0,1fr));
+}
+@media only screen and (max-width:1024px) {
+  .announcement-bar-visible .header .nav {
+    top:102px;
+  }
+}
+
+.main-nav__item:hover .subnav-wrapper .submenu__item a[href*=gift-card] {
+  display:block;
+}

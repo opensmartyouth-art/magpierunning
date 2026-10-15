@@ -1,0 +1,164 @@
+/*
+  ALD (Aimé Leon Dore) — Foundation tokens
+  출처: https://www.aimeleondore.com/collections/shop-all  (2026-10-14 수집)
+  분석 대상: theme.scss.css · pdp-styles.scss.css · 인라인 <style> 25개 (원본은 ../../_source/)
+
+  원칙
+  - 사이트 CSS에 실제로 있는 값만 담는다. 없는 단계를 채우지 않는다.
+  - 원본은 CSS 변수를 하나도 쓰지 않는다(0개). 아래 이름은 관찰한 값에 붙인 이름이다.
+  - 주석의 ×N 은 분석한 CSS 안에서 그 값이 쓰인 횟수다.
+*/
+
+:root {
+  /* ───────── 1. Color ───────── */
+
+  /* Neutral — 원본의 색은 거의 전부 이 무채색 */
+  --ald-color-ink:        #181818;  /* 본문·제목·선·어두운 면. ×155 */
+  --ald-color-white:      #fff;     /* 배경·어두운 면 위 글자. ×139 */
+  --ald-color-black:      #000;     /* 건너뛰기 링크 배경 등. ×11 */
+  --ald-color-gray-50:    #f7f7f7;  /* 옅은 면(top-bar, 비활성 버튼). ×16 */
+  --ald-color-gray-100:   #eee;     /* ×16 (#eee 8 + #eeeeee 8) */
+  --ald-color-gray-200:   #e5e5e5;  /* 1px 구분선·테두리. ×62 */
+  --ald-color-gray-400:   #c4c4c4;  /* 비활성·보조 글자. ×71 */
+  --ald-color-gray-500:   #aaa;     /* ×13 */
+  --ald-color-gray-600:   #888;     /* ×5 */
+  --ald-color-gray-650:   #999;     /* ×4 */
+  --ald-color-gray-800:   #454545;  /* 모바일 내비 패널 배경. ×4 */
+
+  /* Ink 투명도 — 오버레이·딤. 원본 표기 그대로 8자리 hex */
+  --ald-color-ink-75:     #181818bf;  /* ×5 */
+  --ald-color-ink-70:     #181818b3;  /* ×2 */
+  --ald-color-ink-60:     #18181899;  /* ×4 */
+  --ald-color-ink-40:     #18181866;  /* ×3 */
+  --ald-color-ink-30:     #1818184d;  /* ×2 */
+  --ald-color-black-50:   #00000080;  /* ×4 */
+  --ald-color-black-30:   #0000004d;  /* ×2 */
+  --ald-color-gray-400-70:#c4c4c4b3;  /* 비활성 탭 글자. ×2 */
+
+  /* Signal — 쓰임이 정해진 색 */
+  --ald-color-sale:       #d43f21;  /* 할인가·최종 판매 배지·오류 문구. ×19 */
+  --ald-color-online:     #089e56;  /* 로그인 상태 점. ×2 */
+  --ald-color-cafe:       #e2c373;  /* Café Leon Dore 페이지 헤더 한정. ×4 */
+
+  /* ───────── 2. Typography ───────── */
+
+  /* Family — @font-face 로 자체 호스팅 */
+  --ald-font-sans:     Sohne, Arial, sans-serif;                          /* 본문·기본. 400 */
+  --ald-font-din:      "DIN W01 Regular", Arial, sans-serif;              /* 버튼·내비·오버레이 라벨 */
+  --ald-font-serif:    "Financier Display", "Times New Roman", Times, serif; /* 큰 제목. 500 */
+  --ald-font-pitch:    Pitch, Arial, sans-serif;                          /* 선언만 있고 사용 1회. 700 */
+
+  /* Size — rem(루트 16px) 기준. px 표기는 rem 으로 환산해 합쳤다 */
+  --ald-text-8:    0.5rem;     /* 8px.  ×15 (.5rem 5 + 8px 10) */
+  --ald-text-10:   0.625rem;   /* 10px. ×96 (.625rem 59 + 10px 37) — 가장 많이 쓰는 크기 */
+  --ald-text-11:   0.6875rem;  /* 11px. ×38 */
+  --ald-text-12:   0.75rem;    /* 12px. ×78 */
+  --ald-text-13:   0.8125rem;  /* 13px. h4 재정의에서 사용 */
+  --ald-text-14:   0.875rem;   /* 14px. body 기본. ×9 */
+  --ald-text-17:   1.0625rem;  /* 17px. h1 기본. ×9 */
+  --ald-text-20:   1.25rem;    /* 20px. ×3 */
+  --ald-text-24:   1.5rem;     /* 24px. 세리프 제목(.title). ×7 */
+  --ald-text-26:   1.625rem;   /* 26px. 홈 h2. ×6 */
+  --ald-text-28:   1.75rem;    /* 28px. ×3 */
+  --ald-text-44:   2.75rem;    /* 44px. ×4 */
+
+  /* Weight */
+  --ald-weight-light:   300;  /* ×2 */
+  --ald-weight-regular: 400;  /* ×31 — 기본 */
+  --ald-weight-medium:  500;  /* ×8 — Financier Display */
+  --ald-weight-bold:    700;  /* ×8 — strong */
+
+  /* Line height */
+  --ald-leading-none:    1;     /* ×27 */
+  --ald-leading-tight:   1.15;  /* ×5 */
+  --ald-leading-snug:    1.4;   /* ×11 (+ 140% ×5) */
+  --ald-leading-body:    1.41;  /* body 기본. ×7 */
+  --ald-leading-price:   1.45;  /* 상품 가격. ×6 */
+
+  /* Letter spacing */
+  --ald-tracking-normal: normal;
+  --ald-tracking-body:   0.05em;  /* body 기본. ×54 */
+  --ald-tracking-button: 0.1em;   /* 버튼. ×29 */
+  --ald-tracking-label:  0.15em;  /* 대문자 라벨(공지바·필터 제목·태그). ×26 */
+
+  /* Text transform — 대문자 라벨이 원본의 핵심 문법 (uppercase ×60) */
+  --ald-transform-label: uppercase;
+
+  /* ───────── 3. Spacing ───────── */
+  /* 원본에는 간격 체계(스케일)가 없다. padding·margin·gap 에 서로 다른 값이 169개(px 129개) 쓰이고,
+     4·8 배수 규칙도 없다. 전체 목록은 spacing-inventory.json 과 foundation.html §3 에 있다.
+     아래 12개는 px 값을 쓰인 횟수 순으로 뽑은 상위 12개다(13위는 24px ×19).
+     이름 = px 값. 단계가 아니라 자주 쓰인 값이다. */
+  --ald-space-4:   4px;    /* ×21 */
+  --ald-space-5:   5px;    /* ×27 */
+  --ald-space-7:   7px;    /* ×27 — 그리드 열 간격(모바일) */
+  --ald-space-8:   8px;    /* ×23 */
+  --ald-space-10:  10px;   /* ×55 */
+  --ald-space-12:  12px;   /* ×33 */
+  --ald-space-14:  14px;   /* ×30 — 그리드 열 간격(≥1025px) */
+  --ald-space-15:  15px;   /* ×37 */
+  --ald-space-20:  20px;   /* ×139 — 가장 많음. 페이지 좌우 여백(모바일) */
+  --ald-space-25:  25px;   /* ×59 — 페이지 좌우 여백(≥1025px) */
+  --ald-space-30:  30px;   /* ×37 */
+  --ald-space-40:  40px;   /* ×31 */
+
+  /* ───────── 4. Grid & Layout ───────── */
+  /* 그리드는 CSS Grid + 1fr 열. 범용 .grid-row, 상품 목록 .grid-products 두 갈래이며 같은 규칙을 쓴다.
+     기본(<1025px): 2열 · 열 간격 7px  /  ≥1025px: 열 간격 14px, .grid-row 4열 · .grid-products 5열
+     행 간격은 따로 없다(상품은 .plp-product 의 padding-bottom 30px 로 만든다). */
+  --ald-page-gutter:        var(--ald-space-20);  /* .container padding. ≥1025px 에서 25px */
+  --ald-page-gutter-wide:   var(--ald-space-25);
+  --ald-grid-gap:           7px;    /* 기본 */
+  --ald-grid-gap-wide:      14px;   /* ≥1025px */
+  --ald-grid-cols:          2;      /* 기본 */
+  --ald-grid-cols-row-wide: 4;      /* .grid-row, ≥1025px */
+  --ald-grid-cols-products-wide: 5; /* .grid-products, ≥1025px */
+  --ald-image-ratio-product: 4 / 5; /* .image-4-5 */
+
+  /* 고정 높이 */
+  --ald-announcement-height: 41px;  /* .announcement-bar min-height */
+  --ald-header-height:       61px;  /* .header height */
+  --ald-top-bar-height:      35px;  /* .top-bar height */
+
+  /* ───────── 5. Border & Radius ───────── */
+  --ald-border-width:       1px;
+  --ald-border-hairline:    1px solid var(--ald-color-gray-200);  /* ×40 */
+  --ald-border-ink:         1px solid var(--ald-color-ink);       /* ×17 */
+  --ald-radius-none:        0;    /* 버튼·입력·카드 모두 직각. ×17 */
+  --ald-radius-circle:      50%;  /* 상태 점·스위치. ×5 */
+
+  /* ───────── 6. Elevation ───────── */
+  /* 원본의 깊이는 그림자가 아니라 1px 선과 면 색 차이로 만든다. 그림자는 1곳뿐 */
+  --ald-shadow-popover:     0 0 20px #0000001a;
+
+  /* z-index — 선택자에서 직접 확인한 값만 */
+  --ald-z-plp-tag:          20;    /* .plp-product__tag */
+  --ald-z-announcement:     10;    /* .announcement-bar */
+  --ald-z-top-bar:          11;    /* .top-bar */
+  --ald-z-header:           101;   /* .header */
+  --ald-z-skip-link:        9999;  /* .skip-link */
+
+  /* ───────── 7. Motion ───────── */
+  --ald-duration-100: 0.1s;
+  --ald-duration-150: 0.15s;
+  --ald-duration-200: 0.2s;   /* ×21 — 가장 많이 쓰는 값 */
+  --ald-duration-300: 0.3s;
+  --ald-duration-400: 0.4s;   /* ×10 — 링크·버튼 기본 */
+  --ald-duration-500: 0.5s;
+  --ald-duration-600: 0.6s;
+
+  --ald-ease-linear:     linear;                                  /* a 의 transition */
+  --ald-ease-in-out:     ease-in-out;                             /* .btn */
+  --ald-ease-soft:       cubic-bezier(0.455, 0.03, 0.515, 0.955); /* ×3 */
+  --ald-ease-header:     cubic-bezier(0.645, 0.045, 0.355, 1);    /* .header 배경. ×2 */
+  --ald-ease-toggle:     cubic-bezier(0.49, 0.01, 0.49, 0.99);    /* 메뉴 토글 선. ×2 */
+}
+
+/* Breakpoints — CSS 변수로는 못 쓰므로 값만 기록 (media query 사용 횟수)
+   1025px  min-width  ×184+ — 데스크톱 시작 (모바일은 max-width:1024px ×97+)
+   768px   min-width  ×38+  — 태블릿
+   560px   max-width  ×10
+   450px   max-width  ×7
+   1200px  min-width  ×3
+   1400px  min-width  ×4
+*/

@@ -1,0 +1,295 @@
+/* 대회 카드 (Article card) — 원본 규칙 그대로(속성 줄바꿈만). 출처: theme.scss.css · pdp-styles.scss.css · 인라인 */
+.grid-row {
+  display:grid;
+  grid-auto-rows:auto;
+  grid-template-columns:repeat(2,1fr);
+  column-gap:7px;
+}
+@media only screen and (max-width:767px) {
+  .grid-row.grid-row--sm-one {
+    grid-template-columns:repeat(1,1fr);
+  }
+  .grid-row.grid-row--sm-one .article__info {
+    padding-left:20px;
+  }
+}
+
+@media only screen and (max-width:1024px) {
+  .grid-row {
+    margin-left:-20px;
+    margin-right:-20px;
+  }
+  .grid-row .col-2:nth-child(odd) .article__info {
+    padding-left:20px;
+  }
+}
+
+@media only screen and (min-width:768px)and (max-width:1024px) {
+  .grid-row.grid-row--md-three {
+    grid-template-columns:repeat(3,1fr);
+  }
+  .grid-row.grid-row--md-three .col-2:nth-child(odd) .article__info {
+    padding-left:0;
+  }
+  .grid-row.grid-row--md-three .col-2:nth-child(3n+1) .article__info {
+    padding-left:20px;
+  }
+}
+
+@media only screen and (max-width:1024px) {
+  .grid-row .grid-row__item:nth-child(odd) .short-desc {
+    padding-left:20px;
+  }
+}
+
+@media only screen and (min-width:1025px) {
+  .grid-row {
+    grid-template-columns:repeat(4,1fr);
+    column-gap:14px;
+  }
+  .grid-row.grid-row--lg-five {
+    grid-template-columns:repeat(5,1fr);
+  }
+}
+
+.grid-row__item .short-desc {
+  padding-bottom:30px;
+}
+.grid-row__item .short-desc a, .grid-row__item .short-desc div {
+  font-size:.75rem;
+  letter-spacing:.05em;
+  line-height:1.41;
+  margin:0;
+  text-transform:capitalize;
+}
+@media only screen and (min-width:1025px) {
+  .grid-row__item .short-desc {
+    padding-bottom:26.8px;
+  }
+}
+
+.grid-row--1 {
+  grid-template-columns:repeat(1,1fr);
+  row-gap:7px;
+}
+.grid-row--1 img {
+  width:100%;
+  display:block;
+}
+.grid-row--3 {
+  grid-template-columns:repeat(3,1fr);
+}
+.grid-row--2 {
+  grid-template-columns:repeat(2,1fr);
+}
+@media only screen and (min-width:1025px) {
+  .grid-row--lg-2 {
+    grid-template-columns:repeat(2,1fr);
+  }
+  .grid-row--lg-3 {
+    grid-template-columns:repeat(3,1fr);
+  }
+}
+
+.grid-row--4 {
+  grid-template-columns:repeat(4,1fr);
+}
+@media only screen and (min-width:1025px) {
+  .grid-row--lg-4 {
+    grid-template-columns:repeat(4,1fr);
+  }
+}
+
+.grid-row--6 {
+  grid-template-columns:repeat(6,1fr);
+}
+@media only screen and (min-width:1025px) {
+  .grid-row--lg-6 {
+    grid-template-columns:repeat(6,1fr);
+  }
+  .grid-row--5 {
+    grid-template-columns:repeat(5,1fr);
+  }
+}
+
+.grid-row--submenu {
+  grid-template-columns:repeat(auto-fit,minmax(0,1fr));
+}
+.image-portrait {
+  display:block;
+  position:relative;
+  overflow:hidden;
+  height:0;
+  padding-top:150%;
+}
+.image-portrait>img {
+  position:absolute;
+  display:block;
+  max-width:100%;
+  max-height:100%;
+  width:100%;
+  height:auto;
+  left:0;
+  right:0;
+  top:0;
+  bottom:0;
+  margin:auto;
+  object-fit:contain;
+}
+.image-portrait>iframe {
+  position:absolute;
+  display:block;
+  max-width:100%;
+  max-height:100%;
+  width:100%;
+  height:100%;
+  left:0;
+  right:0;
+  top:0;
+  bottom:0;
+  margin:auto;
+  object-fit:contain;
+}
+.image-portrait video {
+  position:absolute;
+  display:block;
+  max-width:100%;
+  max-height:100%;
+  width:100%;
+  height:100%;
+  left:0;
+  right:0;
+  top:0;
+  bottom:0;
+  margin:auto;
+  object-fit:contain;
+}
+.short-desc {
+  font-size:.75rem;
+  padding:16px 0 10px;
+}
+.short-desc.plp-product__details {
+  font-size:.625rem;
+}
+.short-desc.plp-product__details h3 {
+  font-size:.6875rem;
+}
+.short-desc.plp-product__details s {
+  font-size:.625rem!important;
+}
+@media only screen and (min-width:1025px) {
+  .short-desc.plp-product__details {
+    justify-content:space-between;
+    display:flex;
+  }
+  .short-desc.plp-product__details h3 {
+    font-size:.625rem;
+  }
+}
+
+.color-mg {
+  color:#c4c4c4!important;
+}
+.article {
+  padding-bottom:26.8px;
+}
+@media only screen and (min-width:1025px) {
+  .article {
+    padding-bottom:30px;
+  }
+}
+
+.article__info {
+  padding-right:20px;
+}
+@media only screen and (max-width:1024px) {
+  .grid-products.grid-products--four-mobile .short-desc {
+    display:none!important;
+  }
+}
+
+.cart-modal-mobile .recently-viewed-carousel .short-desc {
+  display:none;
+}
+.recently-viewed-carousel .short-desc {
+  padding-top:10px;
+}
+@media only screen and (max-width:1024px) {
+  .recently-viewed-carousel .short-desc * {
+    font-size:.75rem!important;
+  }
+}
+
+@media only screen and (min-width:1025px) {
+  .articles {
+    padding-top:25px;
+  }
+}
+
+.article-single .article__title {
+  font-family:Financier Display,Times New Roman,Times,serif;
+  font-weight:500;
+  letter-spacing:normal;
+  margin-top:0;
+  margin-bottom:7px;
+  font-size:1.5rem;
+  line-height:1;
+}
+.editorial-section .image-portrait {
+  padding-top:160%;
+}
+.editorial-section .image-portrait img {
+  object-fit:cover;
+  height:100%;
+}
+.grid-row--brand {
+  grid-column-gap:20px;
+}
+.grid-row--brand .article__featured-image img {
+  height:100%;
+  width:100%;
+  object-fit:cover;
+}
+.grid-row--brand .article:first-child {
+  padding-bottom:29px;
+  grid-column:1/3;
+}
+@media only screen and (max-width:1024px) {
+  .grid-row--brand {
+    margin:0;
+  }
+  .grid-row--brand .article {
+    padding-bottom:17px;
+  }
+  .grid-row--brand .article:first-child {
+    margin:0 -20px;
+  }
+  .grid-row--brand .article:first-child .article__info {
+    padding-left:20px;
+  }
+}
+
+@media only screen and (min-width:1025px) {
+  .grid-row--brand {
+    grid-column-gap:17px;
+  }
+  .grid-row--brand .article:first-child {
+    padding-bottom:35px;
+    grid-column:1/6;
+  }
+  .grid-row--brand .image-3-4 {
+    padding-top:119.76048%;
+  }
+  .grid-row--brand .image-landscape {
+    padding-top:54.82014%;
+  }
+  .source-wrapper .short-desc {
+    padding-left:25px;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .search-advanced__news .grid-row .article__info {
+    padding-left: 12px !important;
+  }
+}

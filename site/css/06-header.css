@@ -1,0 +1,387 @@
+/* 헤더 — 원본 규칙 그대로(속성 줄바꿈만). 출처: theme.scss.css · pdp-styles.scss.css · 인라인 */
+.header {
+  position:fixed;
+  width:100%;
+  height:61px;
+  z-index:101;
+  border-bottom:1px solid #e5e5e5;
+  transition:background .35s cubic-bezier(.645,.045,.355,1);
+  background:#fff;
+}
+.header.header--no-border {
+  border:none;
+}
+.header.header--light {
+  border-bottom-color:transparent;
+}
+.menu-toggle, .close-menu-toggle {
+  position:relative;
+  z-index:2;
+  display:flex;
+  align-items:center;
+  width:16px;
+  height:17px;
+  margin-top:24px;
+  outline:0 none;
+}
+.menu-toggle:before, .menu-toggle:after, .close-menu-toggle:before, .close-menu-toggle:after {
+  content:"";
+  position:absolute;
+  width:16px;
+  background:#181818;
+  height:1px;
+  right:0;
+  transition:all .2s cubic-bezier(.49,.01,.49,.99);
+}
+.menu-toggle:before, .close-menu-toggle:before {
+  top:0;
+}
+.menu-toggle:after, .close-menu-toggle:after {
+  top:16px;
+}
+.menu-toggle span, .close-menu-toggle span {
+  display:block;
+  width:100%;
+  background:#181818;
+  height:1px;
+  transition:all .2s cubic-bezier(.49,.01,.49,.99);
+}
+.menu-toggle.active-menu-toggle span, .close-menu-toggle.active-menu-toggle span {
+  opacity:0;
+}
+.menu-toggle.active-menu-toggle:before, .close-menu-toggle.active-menu-toggle:before {
+  transform:rotate(45deg);
+  top:7px;
+  width:20px;
+  right:-1px;
+}
+.menu-toggle.active-menu-toggle:after, .close-menu-toggle.active-menu-toggle:after {
+  top:7px;
+  width:20px;
+  right:-1px;
+  transform:rotate(-45deg);
+}
+@media screen and (max-width:450px) {
+  .menu-collapse .menu-toggle, .menu-collapse .close-menu-toggle {
+    z-index:1002;
+  }
+  .menu-collapse .menu-toggle:before, .menu-collapse .menu-toggle:after, .menu-collapse .close-menu-toggle:before, .menu-collapse .close-menu-toggle:after {
+    background:#fff;
+  }
+}
+
+@media only screen and (min-width:1025px) {
+  .menu-toggle, .close-menu-toggle {
+    margin-top:0;
+  }
+  .menu-toggle.menu-toggle--dark span, .menu-toggle.menu-toggle--dark:before, .menu-toggle.menu-toggle--dark:after {
+    background:#181818!important;
+  }
+  .menu-toggle.menu-toggle--light span, .menu-toggle.menu-toggle--light:before, .menu-toggle.menu-toggle--light:after {
+    background:#fff!important;
+  }
+}
+
+.close-menu-toggle {
+  padding:0;
+  background:none;
+  border:none;
+  display:none;
+  cursor:pointer;
+  z-index:11;
+}
+.close-menu-toggle span {
+  display:none;
+}
+.close-menu-toggle:before {
+  transform:rotate(45deg);
+  top:7px;
+  width:20px;
+  right:-1px;
+  background:#fff;
+}
+.close-menu-toggle:after {
+  top:7px;
+  width:20px;
+  right:-1px;
+  transform:rotate(-45deg);
+  background:#fff;
+}
+@media screen and (min-width:451px) {
+  .close-menu-toggle {
+    display:block;
+    position:absolute;
+    right:20px;
+    top:0;
+  }
+}
+
+@media only screen and (min-width:1025px) {
+  .close-menu-toggle {
+    top:21px;
+  }
+}
+
+.site-name {
+  position:absolute;
+  display:block;
+  text-align:center;
+  left:50%;
+  margin:auto auto auto -65px;
+  z-index:1;
+  top:19px;
+  transition:none;
+}
+.site-name svg {
+  transition:all .5s ease;
+}
+.site-name svg * {
+  transition:all .5s ease;
+}
+@media screen and (max-width:450px) {
+  .menu-collapse .site-name svg {
+    color:#fff;
+  }
+  .menu-collapse .site-name svg * {
+    fill:#fff;
+  }
+}
+
+.site-name img {
+  height:21px;
+  width:auto;
+}
+@media screen and (max-width:450px) {
+  .menu-collapse .site-name {
+    z-index:1002;
+  }
+}
+
+@media only screen and (min-width:1025px) {
+  .site-name {
+    top:17px;
+  }
+  .site-name.site-name--dark svg {
+    color:#181818!important;
+  }
+  .site-name.site-name--dark svg * {
+    fill:#181818!important;
+  }
+  .site-name.site-name--light svg {
+    color:#fff!important;
+  }
+  .site-name.site-name--light svg * {
+    fill:#fff!important;
+  }
+}
+
+.header--crest-transition.header--fixed .site-name__logo-crest, .header--crest-transition.header--no-fixed-scrolled .site-name__logo-crest {
+  opacity:1;
+}
+.header--crest-transition.header--fixed .site-name__logo, .header--crest-transition.header--no-fixed-scrolled .site-name__logo {
+  opacity:0;
+}
+.header--light:not(.header--fixed) {
+  background:none;
+}
+.header--light:not(.header--fixed) .site-name svg {
+  color:#fff;
+}
+.header--light:not(.header--fixed) .site-name svg * {
+  fill:#fff;
+}
+.header--light:not(.header--fixed) .navbar>li>a {
+  color:#fff;
+}
+.header--light:not(.header--fixed) .menu-toggle span, .header--light:not(.header--fixed) .menu-toggle:before, .header--light:not(.header--fixed) .menu-toggle:after {
+  background:#fff;
+}
+.header--light:not(.header--fixed).header--black .navbar__cart>a {
+  color:#181818;
+}
+.header--light:not(.header--fixed).header--black .navbar__cart>a.active-cart .cart-count {
+  filter:brightness(0);
+}
+.header--light:not(.header--fixed).header--black .menu-toggle span, .header--light:not(.header--fixed).header--black .menu-toggle:before, .header--light:not(.header--fixed).header--black .menu-toggle:after {
+  background:#181818;
+}
+.header--light:not(.header--fixed).header--black .navbar>li>a {
+  color:#181818;
+}
+.header--light:not(.header--fixed).header--black+.top-bar {
+  color:#181818;
+}
+.header--light:not(.header--fixed).header--black .site-name svg {
+  color:#181818;
+}
+.header--light:not(.header--fixed).header--black .site-name svg * {
+  fill:#181818;
+}
+.header--light:not(.header--fixed).header--black .icon-search-navbar, .header--light:not(.header--fixed).header--black .icon-profile-navbar, .header--light:not(.header--fixed).header--black .icon-cart {
+  stroke:#181818;
+}
+.header--light:not(.header--fixed).header--black .icon-search-navbar *, .header--light:not(.header--fixed).header--black .icon-profile-navbar *, .header--light:not(.header--fixed).header--black .icon-cart * {
+  stroke:inherit;
+}
+.header--light.header--fixed {
+  border-bottom:1px solid #e5e5e5;
+}
+.header--light.header--fixed .icon-search-navbar, .header--light.header--fixed .icon-profile-navbar {
+  stroke:#181818;
+}
+.header--light.header--fixed .icon-search-navbar *, .header--light.header--fixed .icon-profile-navbar * {
+  stroke:inherit;
+}
+.header--light.header--fixed .navbar__cart>a .icon-cart {
+  stroke:#181818;
+}
+.header--light.header--fixed .navbar__cart>a .icon-cart * {
+  stroke:inherit;
+}
+.header--light.header--fixed .navbar__cart>a.active-cart .cart-count {
+  filter:brightness(0);
+}
+.header--light .icon-search-navbar, .header--light .icon-profile-navbar {
+  stroke:#fff;
+}
+.header--light .icon-search-navbar *, .header--light .icon-profile-navbar * {
+  stroke:inherit;
+}
+.header--light .navbar__cart>a .icon-cart {
+  stroke:#fff;
+}
+.header--light .navbar__cart>a .icon-cart * {
+  stroke:inherit;
+}
+.header--light .navbar__cart>a.active-cart .cart-count {
+  filter:brightness(100);
+}
+.header--search:not(.header--light) {
+  background:none;
+  border:none;
+}
+.header--search:not(.header--light) .site-name {
+  filter:none;
+}
+.header--search:not(.header--light) .navbar>li>a {
+  color:#fff;
+}
+.header--search:not(.header--light) .site-name, .header--search:not(.header--light) .cart-count {
+  color:#fff;
+}
+.header--search:not(.header--light) .site-name svg, .header--search:not(.header--light) .cart-count svg {
+  color:#fff;
+}
+.header--search:not(.header--light) .site-name svg *, .header--search:not(.header--light) .cart-count svg * {
+  fill:#fff;
+}
+.header--search:not(.header--light) .menu-toggle span, .header--search:not(.header--light) .menu-toggle:before, .header--search:not(.header--light) .menu-toggle:after {
+  background:#fff!important;
+}
+.header--search:not(.header--light) .icon-search-navbar, .header--search:not(.header--light) .icon-profile-navbar, .header--search:not(.header--light) .icon-cart {
+  stroke:#fff;
+}
+.header--search:not(.header--light) .icon-search-navbar *, .header--search:not(.header--light) .icon-profile-navbar *, .header--search:not(.header--light) .icon-cart * {
+  stroke:inherit;
+}
+.header--search+.top-bar {
+  background:none;
+  border-bottom:0;
+  color:#fff;
+}
+.header--fixed.header--fixed-wb {
+  background:none;
+  border:none;
+}
+.template-index--light-header .header:not(.header--black)~.top-bar:not(.top-bar--fixed) {
+  color:#fff;
+}
+.announcement-bar-visible .header {
+  top:41px;
+}
+@media only screen and (max-width:1024px) {
+  .announcement-bar-visible .header {
+    top:41px;
+  }
+  .announcement-bar-visible .header .nav {
+    top:102px;
+  }
+}
+
+.page-vintage .header--vintage {
+  transition:none;
+}
+.header.header-cafe {
+  background:#1d3c34;
+}
+.header.header-cafe:after {
+  content:"";
+  position:absolute;
+  left:0;
+  height:20px;
+  width:100%;
+  bottom:-20px;
+  background-image:url(//www.aimeleondore.com/cdn/shop/t/112/assets/header_bottom.png?v=117987726983012163631684288406);
+  background-position:left bottom;
+  background-repeat:repeat-x;
+  z-index:10;
+}
+.header.header-cafe .navbar {
+  color:#e2c373;
+}
+.header.header-cafe .navbar * {
+  color:inherit!important;
+  stroke:#e2c373;
+}
+.header.header-cafe .cart-txt, .header.header-cafe .cart-count {
+  font-family:DIN W01 Regular,Arial,sans-serif;
+}
+.header.header-cafe .btn-cafe-back {
+  margin-top:20px;
+  display:flex;
+  align-items:center;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  font-family:DIN W01 Regular,Arial,sans-serif;
+  font-size:.6875rem;
+}
+.header.header-cafe .btn-cafe-back svg {
+  stroke:#181818;
+}
+.header.header-cafe .btn-cafe-back svg * {
+  stroke:inherit;
+}
+.header.header-cafe .btn-cafe-back span {
+  display:block;
+  margin-left:.5rem;
+}
+.header.header-cafe .menu-toggle {
+  color:#e2c373;
+}
+.header.header-cafe .menu-toggle:before, .header.header-cafe .menu-toggle:after, .header.header-cafe .menu-toggle span {
+  background:#e2c373!important;
+}
+@media only screen and (min-width:1025px) {
+  .header.header-cafe .btn-cafe-back {
+    margin:0;
+  }
+  .header.header-cafe .btn-cafe-back span {
+    margin-left:.7rem;
+  }
+}
+
+.header--invert.header--no-fixed-scrolled {
+  filter:invert(1);
+  mix-blend-mode:difference;
+}
+.header--invert.header--no-fixed-scrolled .menu-toggle, .header--invert.header--no-fixed-scrolled .site-name svg, .header--invert.header--no-fixed-scrolled .navbar svg {
+  mix-blend-mode:difference;
+  filter:invert(1);
+}
+.header--invert-partial .menu-toggle, .header--invert-partial .site-name svg, .header--invert-partial .navbar svg {
+  mix-blend-mode:difference;
+  filter:invert(1);
+}
+.page-search .header {
+  border-bottom: 0;
+}

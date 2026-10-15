@@ -1,0 +1,63 @@
+/* 갤러리 전용 규칙. 값은 전부 foundation/tokens.css 의 토큰이다. 레퍼런스에 있는 클래스(.article 등)는 components/css 의 원본 규칙을 쓴다. */
+body {
+  margin: 0;
+  font-family: var(--ald-font-sans);
+  font-size: var(--ald-text-14);
+  font-weight: var(--ald-weight-regular);
+  line-height: var(--ald-leading-body);
+  letter-spacing: var(--ald-tracking-body);
+  color: var(--ald-color-ink);
+  background: var(--ald-color-white);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 헤더·메뉴는 원본 .header / .menu-toggle / .nav 규칙을 그대로 쓴다(components/css/06, 08). 아래는 바꾼 부분만. */
+.h-100 { height: 100% !important; } /* 원본 theme.scss.css 의 유틸리티 */
+@media only screen and (min-width: 1025px) { .h-lg-100 { height: 100% !important; } }
+
+/* 원본 .site-name 은 130px 로고 이미지를 가정해 margin-left:-65px 로 가운데에 둔다. 글자 이름은 자기 너비 기준으로 가운데에 둔다 */
+.site-name {
+  margin: 0;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  top: 23px;
+  font-family: var(--ald-font-din);
+  font-size: var(--ald-text-14);
+  letter-spacing: var(--ald-tracking-label);
+  text-transform: var(--ald-transform-label);
+  line-height: var(--ald-leading-none);
+}
+@media only screen and (min-width: 1025px) { .site-name { top: 23px; } }
+
+/* 모바일에서 메뉴가 열리면 가운데 이름을 흰색으로(원본은 로고 svg 에 같은 처리) */
+@media screen and (max-width: 450px) { .menu-collapse .site-name { color: var(--ald-color-white); z-index: 1002; } }
+
+/* 메뉴 패널: 원본 배경에 깔린 ALD 로고 무늬는 쓰지 않는다. 탭 줄이 없으니 닫기 버튼 높이(61px)만큼 비운다 */
+.nav__wrapper:after { content: none; }
+@media screen and (min-width: 451px) { .nav__container { padding-top: 61px; } }
+.main-nav-panel__link[aria-current] { color: var(--ald-color-white); }
+/* Coming soon: 링크가 아니라 안내 글자. 눌리지 않고 hover 색도 바뀌지 않는다 */
+.main-nav-panel__link.coming-soon,
+.main-nav-panel__link.coming-soon:hover { color: var(--ald-color-gray-400-70); cursor: default; }
+
+/* 연도 목록 위 라벨(10px 대문자, 자간 .15em = 원본 라벨 문법) */
+.year-label { margin: 0 0 var(--ald-space-20); font-size: var(--ald-text-10); font-weight: var(--ald-weight-regular); letter-spacing: var(--ald-tracking-label); text-transform: var(--ald-transform-label); }
+
+.articles { padding-top: var(--ald-space-25); padding-bottom: var(--ald-space-30); }
+
+/* 대회 상세의 사진 열: 원본 비율을 유지하고 열 간격은 그리드 간격과 같다 */
+.photo-grid { column-count: 1; column-gap: 0; padding-bottom: var(--ald-space-30); }
+.photo-grid figure { margin: 0 0 var(--ald-grid-gap); break-inside: avoid; }
+.photo-grid img { display: block; width: 100%; height: auto; }
+@media only screen and (min-width: 1025px) {
+  .photo-grid { column-count: 2; column-gap: var(--ald-grid-gap-wide); }
+  .photo-grid figure { margin-bottom: var(--ald-grid-gap-wide); }
+}
+
+/* 글 상세의 소개 문단은 가운데 정렬(레퍼런스 02). 위 여백은 원본이 데스크톱에만 두는 25px 을 모바일에도 둔다 */
+.article-single { padding-top: var(--ald-space-25); }
+.article-single .article__header,
+.article-single .article__content { text-align: center; }
+.article-single .article__header { display: flex; flex-direction: column; }
+.article-single .article__header .article__date { order: -1; margin-bottom: var(--ald-space-12); font-size: var(--ald-text-10); letter-spacing: var(--ald-tracking-label); text-transform: var(--ald-transform-label); }
+.article-single .article__content { max-width: 480px; margin: 0 auto var(--ald-space-40); }
