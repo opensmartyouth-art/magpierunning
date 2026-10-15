@@ -135,4 +135,18 @@ npm run build        # dist/ 에 사이트 생성
 cd dist && python3 -m http.server 4173
 ```
 
-`site/` 는 빌드 스크립트와 CSS(ALD 디자인 시스템 `ssxekun-designsystem`에서 가져온 값)입니다. 폰트는 ALD 서버에서 불러옵니다.
+`site/` 는 빌드 스크립트와 CSS(ALD 디자인 시스템 `ssxekun-designsystem`에서 가져온 값)입니다.
+
+## 폰트
+
+ALD의 폰트(Söhne, DIN, Financier Display)는 쓰지 않고, 같은 역할의 무료 오픈 폰트(SIL OFL 1.1)를 이 레포에 직접 넣어 씁니다. ALD 서버에서 불러오지 않습니다.
+
+| 역할 | 폰트 | 쓰이는 곳 | 파일 |
+| --- | --- | --- | --- |
+| 본문 | Geist | 카드 제목·날짜, 소개 문단, 날짜 라벨, 링크, 메뉴 글자 | `site/fonts/` |
+| 버튼·링크류 | Archivo | 대회 상세 하단의 Older Post / Newer Post, 페이지 번호 | `site/fonts/` |
+| 세리프 제목 | Libre Bodoni | 대회 상세의 큰 제목 | `site/fonts/` |
+
+원본과 같은 인상이 나오도록 글자 폭에 맞춰 자간을 다시 정했고, 세리프 제목은 크기를 24px에서 20px로 줄였습니다(Libre Bodoni가 Financier보다 같은 크기에서 폭이 22%, 대문자 높이가 24% 크기 때문입니다). 행간은 원본 값을 그대로 씁니다. 값과 근거는 `site/gallery.css` 맨 아래의 "폰트 보정"에 있습니다.
+
+폰트를 바꾸려면 `site/css/fonts.css`와 `site/fonts/`를 바꾸고, `site/build.mjs`의 `FONT_MAP`에서 어떤 폰트가 어느 역할인지 연결합니다. 바꾼 뒤에는 자간이 다시 맞아야 하므로 `site/gallery.css`의 "폰트 보정" 값도 함께 확인합니다.

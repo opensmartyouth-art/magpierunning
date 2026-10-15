@@ -201,11 +201,21 @@ ${MENU_JS}
 `;
 }
 
+// 디자인 시스템 CSS 는 ALD 폰트 이름(Sohne, DIN W01 Regular, Financier Display)으로 적혀 있다. 이 사이트는 같은 역할의 무료 폰트로 바꿔 쓴다.
+const FONT_MAP = [
+  [/DIN W01 Regular/g, 'Archivo'], // 버튼·링크류
+  [/Financier Display/g, 'Libre Bodoni'], // 세리프 제목
+  [/\bSohne\b/g, 'Geist'], // 본문
+];
+
 async function buildCss() {
   const rd = (f) => readFile(join(root, 'site', f), 'utf8');
-  const parts = await Promise.all(['css/fonts.css', 'css/tokens.css', 'css/base.css', 'css/06-header.css', 'css/08-main-menu.css', 'css/21-article-card.css', 'css/22-article-header.css', 'css/23-article-pagination.css', 'css/05-pagination.css', 'gallery.css'].map(rd));
-  await mkdir(join(dist, 'assets'), { recursive: true });
-  await writeFile(join(dist, 'assets/site.css'), parts.join('\n\n'));
+  const [fonts, ...rest] = await Promise.all(['css/fonts.css', 'css/tokens.css', 'css/base.css', 'css/06-header.css', 'css/08-main-menu.css', 'css/21-article-card.css', 'css/22-article-header.css', 'css/23-article-pagination.css', 'css/05-pagination.css', 'gallery.css'].map(rd));
+  let body = rest.join('\n\n');
+  for (const [from, to] of FONT_MAP) body = body.replace(from, to);
+  await mkdir(join(dist, 'assets/fonts'), { recursive: true });
+  for (const f of await readdir(join(root, 'site/fonts'))) await writeFile(join(dist, 'assets/fonts', f), await readFile(join(root, 'site/fonts', f)));
+  await writeFile(join(dist, 'assets/site.css'), [fonts, body].join('\n\n'));
 }
 
 async function buildBrand() {
