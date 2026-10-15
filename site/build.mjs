@@ -118,8 +118,8 @@ const MENU_JS = `<script>
 })();
 </script>`;
 
-// 연도 메뉴: events/ 아래 연도 폴더에서 만든다. 위에서부터 Coming soon(링크 없음), 최신 연도, 이전 연도 순이다.
-const header = (base, years, active) => `<header class="header header--crest-transition">
+// 연도 메뉴: site/config.json 의 menu 로 고정한다. 위에서부터 Coming soon(2027 자리, 링크 없음), 그다음 연도들을 config 에 적은 순서대로 둔다.
+const header = (base, menu, active) => `<header class="header header--crest-transition">
 <div class="container h-100">
 <div class="d-flex justify-content-between align-items-center h-lg-100">
 <a href="#" class="menu-toggle" role="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><span></span></a>
@@ -129,8 +129,8 @@ const header = (base, years, active) => `<header class="header header--crest-tra
 <div class="nav__bar"><button class="close-menu-toggle" aria-label="Close menu"><span></span></button></div>
 <div class="nav__container"><div class="nav__content"><div class="main-nav-panels">
 <ul class="main-nav-panel main-nav-panel--active">
-<li><span class="main-nav-panel__link coming-soon">Coming soon</span></li>
-${years.map((y) => `<li><a class="main-nav-panel__link" href="${base}year/${y}/"${y === active ? ' aria-current="page"' : ''}>${y}</a></li>`).join('\n')}
+${menu.comingSoon ? `<li><span class="main-nav-panel__link coming-soon">${esc(menu.comingSoon)}</span></li>` : ''}
+${menu.years.map((y) => `<li><a class="main-nav-panel__link" href="${base}year/${y}/"${y === active ? ' aria-current="page"' : ''}>${y}</a></li>`).join('\n')}
 </ul>
 </div></div></div></div>
 </nav>
@@ -148,14 +148,14 @@ function card(ev, base) {
 </div>`;
 }
 
-function listPage(events, page, pages, years, year) {
+function listPage(events, page, pages, menu, year) {
   const base = year || page > 1 ? '../../' : './';
   const slice = events.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
   const link = (p) => (p === 1 ? `${base}` : `${base}page/${p}/`);
   const nav = pages > 1 ? `<div class="pagination">${page > 1 ? `<span class="prev"><a href="${link(page - 1)}" aria-label="Previous page"></a></span>` : ''}${Array.from({ length: pages }, (_, i) => i + 1).map((p) => (p === page ? `<span class="page current" aria-current="page">${String(p).padStart(2, '0')}</span>` : `<span class="page"><a href="${link(p)}" aria-label="Page ${p}">${String(p).padStart(2, '0')}</a></span>`)).join('')}${page < pages ? `<span class="next"><a href="${link(page + 1)}" aria-label="Next page"></a></span>` : ''}</div>` : '';
   return `${head(year ? `${year} — ${SITE}` : SITE, base)}
 <body class="template-blog">
-${header(base, years, year)}
+${header(base, menu, year)}
 <main id="main-content" class="main-wrapper" role="main">
 <section class="container-wrapper container">
 <div class="articles articles--current">
@@ -173,13 +173,13 @@ ${MENU_JS}
 `;
 }
 
-function eventPage(ev, items, older, newer, years) {
+function eventPage(ev, items, older, newer, menu) {
   const base = '../../../';
   const figs = items.map((p, i) => `<figure><img src="photos/${p.name}-${p.big}.jpg" srcset="photos/${p.name}-${p.small}.jpg ${p.small}w, photos/${p.name}-${p.big}.jpg ${p.big}w" sizes="(min-width: 1025px) 50vw, 100vw" width="${p.w}" height="${p.h}" alt="${esc(ev.title)} photo ${i + 1}" loading="lazy"></figure>`).join('\n');
   const pn = [older && `<span class="prev-article"><a href="${evUrl(older, base)}">Older Post</a></span>`, newer && `<span class="next-article"><a href="${evUrl(newer, base)}">Newer Post</a></span>`].filter(Boolean).join('\n');
   return `${head(`${ev.title} — ${SITE}`, base)}
 <body class="template-article">
-${header(base, years, ev.year)}
+${header(base, menu, ev.year)}
 <main id="main-content" class="main-wrapper" role="main">
 <div id="article" class="container-wrapper container container-wrapper--pt">
 <article class="section article article-single" itemscope itemtype="http://schema.org/Article">
@@ -229,22 +229,26 @@ async function main() {
   await buildBrand();
   const processed = new Map();
   for (const ev of events) processed.set(`${ev.year}/${ev.slug}`, await processPhotos(ev));
-  const years = [...new Set(events.map((e) => e.year))].sort().reverse(); // 최신 연도가 위
+  const years = [...new Set(events.map((e) => e.year))].sort().reverse(); // 대회가 있는 연도(연도 페이지를 만든다)
+  const config = JSON.parse(await readFile(join(root, 'site/config.json'), 'utf8'));
+  const menu = { years: config.menu.years.map(String), comingSoon: config.menu.comingSoon || '' };
+  for (const y of menu.years) if (!years.includes(y)) throw new Error(`site/config.json 의 메뉴 연도 ${y} 에 해당하는 대회가 events/${y}/ 에 없습니다`);
+  for (const y of years) if (!menu.years.includes(y)) console.warn(`경고: events/${y}/ 의 대회는 사이트에 만들어지지만 메뉴에는 없습니다 (메뉴에 넣으려면 site/config.json 의 menu.years 에 \"${y}\" 를 추가하세요)`);
   const pages = Math.max(1, Math.ceil(events.length / PAGE_SIZE));
   for (let p = 1; p <= pages; p++) {
     const dir = p === 1 ? dist : join(dist, 'page', String(p));
     await mkdir(dir, { recursive: true });
-    await writeFile(join(dir, 'index.html'), listPage(events, p, pages, years));
+    await writeFile(join(dir, 'index.html'), listPage(events, p, pages, menu));
   }
   for (const y of years) {
     const dir = join(dist, 'year', y);
     await mkdir(dir, { recursive: true });
-    await writeFile(join(dir, 'index.html'), listPage(events.filter((e) => e.year === y), 1, 1, years, y));
+    await writeFile(join(dir, 'index.html'), listPage(events.filter((e) => e.year === y), 1, 1, menu, y));
   }
   for (let i = 0; i < events.length; i++) {
     const ev = events[i];
     // 날짜 내림차순: 다음 칸이 older
-    await writeFile(join(dist, 'events', ev.year, ev.slug, 'index.html'), eventPage(ev, processed.get(`${ev.year}/${ev.slug}`), events[i + 1], events[i - 1], years));
+    await writeFile(join(dist, 'events', ev.year, ev.slug, 'index.html'), eventPage(ev, processed.get(`${ev.year}/${ev.slug}`), events[i + 1], events[i - 1], menu));
   }
   await writeFile(join(dist, '.nojekyll'), '');
   const total = [...processed.values()].reduce((n, a) => n + a.length, 0);
