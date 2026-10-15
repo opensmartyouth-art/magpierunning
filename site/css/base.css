@@ -549,3 +549,7 @@ h5 { font-size: .6875rem; letter-spacing: .05em; line-height: 1.41; margin: 0; }
 img { max-width: 100%; }
 embed, iframe, object { max-width: 100%; }
 a:focus-visible, button:focus-visible { outline-offset: 2px; outline: #000 auto 1px; }
+
+/* ---- theme.scss.css 제목 기본 규칙 (원본: h1,h2,.editorial-info__headline,h3,h4,h5 — 클래스 선택자는 뺐다) ---- */
+h1, h2, h3, h4, h5 { font-weight: 400; color: #181818; }
+h1 strong, h2 strong, h3 strong, h4 strong, h5 strong { font-weight: 700; }
