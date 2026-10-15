@@ -85,6 +85,8 @@ async function processPhotos(ev) {
   return items;
 }
 
+const SITE_URL = 'https://opensmartyouth-art.github.io/magpierunning/';
+const DESC = 'Race photos from MAGPIE RUNNING, collected event by event.';
 const head = (title, base) => `<!doctype html>
 <html lang="en">
 <head>
@@ -94,6 +96,16 @@ const head = (title, base) => `<!doctype html>
 <link rel="icon" type="image/png" sizes="32x32" href="${base}assets/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="${base}assets/favicon-192.png">
 <link rel="apple-touch-icon" href="${base}assets/apple-touch-icon.png">
+<meta name="description" content="${esc(DESC)}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="${SITE}">
+<meta property="og:title" content="${esc(title)}">
+<meta property="og:description" content="${esc(DESC)}">
+<meta property="og:image" content="${SITE_URL}assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="${SITE_URL}assets/og-image.jpg">
 <link rel="stylesheet" href="${base}assets/site.css">
 </head>`;
 
@@ -283,6 +295,7 @@ async function main() {
   await mkdir(dist, { recursive: true });
   await buildCss();
   await buildBrand();
+  await writeFile(join(dist, 'assets', 'og-image.jpg'), await readFile(join(root, 'site/media/og-image.jpg')));
   for (const f of ['hero-landscape.mp4', 'hero-landscape-poster.jpg', 'hero-portrait.mp4', 'hero-portrait-poster.jpg']) await writeFile(join(dist, 'assets', f), await readFile(join(root, 'site/media', f)));
   const processed = new Map();
   for (const ev of events) processed.set(`${ev.year}/${ev.slug}`, await processPhotos(ev));
